@@ -1,5 +1,5 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def home(request):
-    return HttpResponse("HomeHub Lite: setup complete.")
+    return render(request, "core/home.html")
