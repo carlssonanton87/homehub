@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Expenses | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Expenses</h1>
+
+  <form method="get" aria-label="Month filter">
+    <label for="month">Month (YYYY-MM)</label>
+    <input id="month" name="month" type="text" value="{{ current_month|date:'Y-m' }}">
+    <button type="submit">Filter</button>
+  </form>
+
+  <p><a href="{% url 'expenses:create' %}">Add expense</a></p>
+
+  <h2>Total: {{ total }}</h2>
+
+  {% if expenses %}
+    <ul>
+      {% for e in expenses %}
+        <li>
+          <strong>{{ e.date }}</strong> — {{ e.get_category_display }} — {{ e.amount }}
+          {% if e.note %} ({{ e.note }}){% endif %}
+          — <a href="{% url 'expenses:update' e.pk %}">Edit</a>
+          — <a href="{% url 'expenses:delete' e.pk %}">Delete</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No expenses for this month.</p>
+  {% endif %}
+{% endblock %}
