@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Contacts | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Contacts</h1>
+
+  <p><a href="{% url 'contacts:create' %}">Add contact</a></p>
+
+  {% if contacts %}
+    <ul>
+      {% for c in contacts %}
+        <li>
+          <a href="{% url 'contacts:detail' c.pk %}">{{ c.name }}</a>
+          <small>({{ c.get_role_type_display }})</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have no contacts yet.</p>
+  {% endif %}
+{% endblock %}

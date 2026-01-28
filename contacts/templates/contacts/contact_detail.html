@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ contact.name }} | Homehub{% endblock %}
+
+{% block content %}
+  <h1>{{ contact.name }}</h1>
+  <p><strong>Role:</strong> {{ contact.get_role_type_display }}</p>
+
+  {% if contact.phone %}<p><strong>Phone:</strong> {{ contact.phone }}</p>{% endif %}
+  {% if contact.email %}<p><strong>Email:</strong> {{ contact.email }}</p>{% endif %}
+  {% if contact.notes %}<p>{{ contact.notes }}</p>{% endif %}
+
+  <p>
+    <a href="{% url 'contacts:update' contact.pk %}">Edit</a> |
+    <a href="{% url 'contacts:delete' contact.pk %}">Delete</a> |
+    <a href="{% url 'contacts:list' %}">Back to list</a>
+  </p>
+{% endblock %}

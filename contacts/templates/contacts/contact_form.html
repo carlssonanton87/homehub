@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Contact | Homehub{% endblock %}
+
+{% block content %}
+  {% if mode == "create" %}
+    <h1>Add contact</h1>
+  {% else %}
+    <h1>Edit contact</h1>
+  {% endif %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+
+  <p><a href="{% url 'contacts:list' %}">Back</a></p>
+{% endblock %}
