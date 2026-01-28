@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Upgrade | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Upgrade</h1>
+
+  {% if is_premium %}
+    <p><strong>Status:</strong> Premium ✅</p>
+    <p>Thanks for supporting Homehub.</p>
+  {% else %}
+    <p><strong>Status:</strong> Free</p>
+    <p>Free accounts can save up to 5 documents.</p>
+
+    <form action="{% url 'payments:checkout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Upgrade to Premium</button>
+    </form>
+  {% endif %}
+
+  <p><a href="{% url 'core:home' %}">Back to dashboard</a></p>
+{% endblock %}

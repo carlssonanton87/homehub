@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Payment success | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Payment successful</h1>
+  <p>Thank you! Your payment was successful.</p>
+  <p><a href="{% url 'payments:upgrade' %}">Return to Upgrade page</a></p>
+{% endblock %}

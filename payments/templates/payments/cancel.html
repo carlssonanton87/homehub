@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Payment cancelled | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Payment cancelled</h1>
+  <p>Your payment was cancelled. You can try again anytime.</p>
+  <p><a href="{% url 'payments:upgrade' %}">Return to Upgrade page</a></p>
+{% endblock %}
