@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Documents | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Documents</h1>
+
+  <p><a href="{% url 'documents:create' %}">Create new document</a></p>
+
+  {% if documents %}
+    <ul>
+      {% for doc in documents %}
+        <li>
+          <a href="{% url 'documents:detail' doc.pk %}">{{ doc.title }}</a>
+          <small>(updated {{ doc.updated_at|date:"Y-m-d H:i" }})</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have no documents yet.</p>
+  {% endif %}
+{% endblock %}

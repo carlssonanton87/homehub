@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ document.title }} | Homehub{% endblock %}
+
+{% block content %}
+  <h1>{{ document.title }}</h1>
+
+  {% if document.description %}
+    <p>{{ document.description }}</p>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'documents:update' document.pk %}">Edit</a> |
+    <a href="{% url 'documents:delete' document.pk %}">Delete</a> |
+    <a href="{% url 'documents:list' %}">Back to list</a>
+  </p>
+{% endblock %}
