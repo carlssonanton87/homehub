@@ -8,6 +8,9 @@ from documents.models import Document
 from contacts.models import Contact
 from expenses.models import Expense
 
+subscription = getattr(request.user, "subscription", None)
+is_premium = bool(subscription and subscription.is_premium)
+
 
 def home(request):
     if not request.user.is_authenticated:

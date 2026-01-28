@@ -19,8 +19,23 @@ def document_detail(request, pk):
     return render(request, "documents/document_detail.html", {"document": document})
 
 
+FREE_DOCUMENT_LIMIT = 5
+
+
 @login_required
 def document_create(request):
+    subscription = getattr(request.user, "subscription", None)
+    is_premium = bool(subscription and subscription.is_premium)
+
+    if not is_premium:
+        current_count = Document.objects.filter(owner=request.user).count()
+        if current_count >= FREE_DOCUMENT_LIMIT:
+            messages.error(
+                request,
+                f"Free accounts can save up to {FREE_DOCUMENT_LIMIT} documents. Upgrade to Premium to add more."
+            )
+            return redirect("documents:list")
+
     if request.method == "POST":
         form = DocumentForm(request.POST)
         if form.is_valid():
@@ -34,7 +49,6 @@ def document_create(request):
         form = DocumentForm()
 
     return render(request, "documents/document_form.html", {"form": form, "mode": "create"})
-
 
 @login_required
 def document_update(request, pk):

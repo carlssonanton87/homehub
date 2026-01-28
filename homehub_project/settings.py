@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'documents',
     'contacts',
     'expenses',
-    'payments',
+    'payments.apps.PaymentsConfig',
+
 ]
 
 MIDDLEWARE = [

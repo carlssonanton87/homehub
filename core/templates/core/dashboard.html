@@ -32,4 +32,7 @@
       <li><a href="{% url 'expenses:list' %}">Expenses</a></li>
     </ul>
   </section>
+
+  <p><strong>Plan:</strong> {% if is_premium %}Premium{% else %}Free{% endif %}</p>
+
 {% endblock %}
