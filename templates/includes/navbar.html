@@ -16,6 +16,7 @@
   {% csrf_token %}
   <button type="submit">Logout</button>
 </form>
+
     {% else %}
       <a href="{% url 'accounts:login' %}">Login</a>
       <a href="{% url 'accounts:signup' %}">Sign up</a>
