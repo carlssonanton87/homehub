@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Dashboard</h1>
+  <p>Overview for {{ current_month|date:"F Y" }}</p>
+
+  <section aria-label="Summary">
+    <ul>
+      <li><strong>Documents:</strong> {{ document_count }}</li>
+      <li><strong>Contacts:</strong> {{ contact_count }}</li>
+      <li><strong>Expenses this month:</strong> {{ month_expense_count }}</li>
+      <li><strong>Total this month:</strong> {{ month_expense_total }}</li>
+    </ul>
+  </section>
+
+  <section aria-label="Quick actions">
+    <h2>Quick actions</h2>
+    <ul>
+      <li><a href="{% url 'documents:create' %}">Create document</a></li>
+      <li><a href="{% url 'contacts:create' %}">Add contact</a></li>
+      <li><a href="{% url 'expenses:create' %}">Add expense</a></li>
+    </ul>
+  </section>
+
+  <section aria-label="Go to sections">
+    <h2>Go to</h2>
+    <ul>
+      <li><a href="{% url 'documents:list' %}">Documents</a></li>
+      <li><a href="{% url 'contacts:list' %}">Contacts</a></li>
+      <li><a href="{% url 'expenses:list' %}">Expenses</a></li>
+    </ul>
+  </section>
+{% endblock %}

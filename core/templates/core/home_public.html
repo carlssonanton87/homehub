@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Homehub{% endblock %}
+
+{% block content %}
+  <h1>Homehub</h1>
+  <p>Manage your home documents, contacts, and expenses in one secure place.</p>
+
+  <p>
+    <a href="{% url 'accounts:login' %}">Log in</a>
+    or
+    <a href="{% url 'accounts:signup' %}">Create an account</a>
+  </p>
+{% endblock %}
