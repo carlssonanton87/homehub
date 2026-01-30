@@ -2,17 +2,96 @@
 {% block title %}Contact | Homehub{% endblock %}
 
 {% block content %}
-  {% if mode == "create" %}
-    <h1>Add contact</h1>
-  {% else %}
-    <h1>Edit contact</h1>
-  {% endif %}
+  <div class="mx-auto max-w-2xl">
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <h1 class="text-xl font-semibold tracking-tight">
+            {% if mode == "create" %}Add contact{% else %}Edit contact{% endif %}
+          </h1>
+          <p class="mt-1 text-sm text-slate-500">Save important service contacts for your home.</p>
+        </div>
+        <a href="{% url 'contacts:list' %}"
+           class="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+          Back
+        </a>
+      </div>
 
-  <form method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
+      {% if form.non_field_errors %}
+        <div class="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
 
-  <p><a href="{% url 'contacts:list' %}">Back</a></p>
+      <form method="post" novalidate class="mt-6 grid grid-cols-1 gap-4">
+        {% csrf_token %}
+
+        <div>
+          <label for="{{ form.name.id_for_label }}" class="text-sm font-medium text-slate-700">Name</label>
+          <input id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" type="text"
+                 value="{{ form.name.value|default_if_none:'' }}"
+                 class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                 required>
+          {% if form.name.errors %}
+            <p class="mt-1 text-sm text-rose-600">{{ form.name.errors|striptags }}</p>
+          {% endif %}
+        </div>
+
+        <div>
+          <label for="{{ form.role_type.id_for_label }}" class="text-sm font-medium text-slate-700">Role</label>
+          <select id="{{ form.role_type.id_for_label }}" name="{{ form.role_type.html_name }}"
+                  class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200">
+            {% for val, label in form.fields.role_type.choices %}
+              <option value="{{ val }}" {% if form.role_type.value == val %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          {% if form.role_type.errors %}
+            <p class="mt-1 text-sm text-rose-600">{{ form.role_type.errors|striptags }}</p>
+          {% endif %}
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="{{ form.phone.id_for_label }}" class="text-sm font-medium text-slate-700">Phone</label>
+            <input id="{{ form.phone.id_for_label }}" name="{{ form.phone.html_name }}" type="text"
+                   value="{{ form.phone.value|default_if_none:'' }}"
+                   class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200">
+            {% if form.phone.errors %}
+              <p class="mt-1 text-sm text-rose-600">{{ form.phone.errors|striptags }}</p>
+            {% endif %}
+          </div>
+
+          <div>
+            <label for="{{ form.email.id_for_label }}" class="text-sm font-medium text-slate-700">Email</label>
+            <input id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}" type="email"
+                   value="{{ form.email.value|default_if_none:'' }}"
+                   class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200">
+            {% if form.email.errors %}
+              <p class="mt-1 text-sm text-rose-600">{{ form.email.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <div>
+          <label for="{{ form.notes.id_for_label }}" class="text-sm font-medium text-slate-700">Notes (optional)</label>
+          <textarea id="{{ form.notes.id_for_label }}" name="{{ form.notes.html_name }}" rows="4"
+                    class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200">{{ form.notes.value|default_if_none:'' }}</textarea>
+          {% if form.notes.errors %}
+            <p class="mt-1 text-sm text-rose-600">{{ form.notes.errors|striptags }}</p>
+          {% endif %}
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <button type="submit"
+                  class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400">
+            Save
+          </button>
+          <a href="{% url 'contacts:list' %}"
+             class="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}
