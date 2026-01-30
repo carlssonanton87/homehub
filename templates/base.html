@@ -4,29 +4,67 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}HomeHub Lite{% endblock %}</title>
+  <title>{% block title %}Homehub{% endblock %}</title>
+
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind config (tiny design system) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+          colors: {
+            ink: { 900: "#0B1220", 700: "#334155", 500: "#64748b" },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Small global polish */
+    html { font-family: Inter, ui-sans-serif, system-ui; }
+  </style>
 </head>
-<body>
-  <a href="#main-content" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+
+<body class="bg-slate-50 text-slate-900">
+  <!-- Skip link -->
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow">
     Skip to main content
   </a>
 
   {% include "includes/navbar.html" %}
 
-  <main id="main-content">
+  <main id="main-content" class="mx-auto max-w-5xl px-4 py-8">
     {% if messages %}
-      <ul aria-label="messages">
+      <div class="space-y-2 mb-6" aria-label="messages">
         {% for message in messages %}
-          <li>{{ message }}</li>
+          <div class="rounded-xl border bg-white px-4 py-3 text-sm shadow-sm
+                      {% if message.tags == 'success' %}border-emerald-200{% endif %}
+                      {% if message.tags == 'error' %}border-rose-200{% endif %}
+                      {% if message.tags == 'info' %}border-sky-200{% endif %}
+                      {% if message.tags == 'warning' %}border-amber-200{% endif %}">
+            {{ message }}
+          </div>
         {% endfor %}
-      </ul>
+      </div>
     {% endif %}
 
     {% block content %}{% endblock %}
   </main>
 
-  <footer>
-    <small>&copy; {% now "Y" %} HomeHub Lite</small>
+  <footer class="border-t bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-6 text-sm text-slate-500">
+      &copy; {% now "Y" %} Homehub
+    </div>
   </footer>
 </body>
 </html>
