@@ -3,36 +3,173 @@
 {% block title %}Dashboard | Homehub{% endblock %}
 
 {% block content %}
-  <h1>Dashboard</h1>
-  <p>Overview for {{ current_month|date:"F Y" }}</p>
+  <div class="flex items-start justify-between gap-6">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Dashboard</h1>
+      <p class="mt-1 text-sm text-slate-500">
+        Overview for {{ current_month|date:"F Y" }}.
+      </p>
+    </div>
 
-  <section aria-label="Summary">
-    <ul>
-      <li><strong>Documents:</strong> {{ document_count }}</li>
-      <li><strong>Contacts:</strong> {{ contact_count }}</li>
-      <li><strong>Expenses this month:</strong> {{ month_expense_count }}</li>
-      <li><strong>Total this month:</strong> {{ month_expense_total }}</li>
-    </ul>
-  </section>
+    <div class="hidden sm:flex items-center gap-2">
+      <a href="{% url 'documents:create' %}"
+         class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400">
+        New document
+      </a>
+      <a href="{% url 'expenses:create' %}"
+         class="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-300">
+        Add expense
+      </a>
+    </div>
+  </div>
 
-  <section aria-label="Quick actions">
-    <h2>Quick actions</h2>
-    <ul>
-      <li><a href="{% url 'documents:create' %}">Create document</a></li>
-      <li><a href="{% url 'contacts:create' %}">Add contact</a></li>
-      <li><a href="{% url 'expenses:create' %}">Add expense</a></li>
-    </ul>
-  </section>
+  <!-- Quick actions (mobile) -->
+  <div class="sm:hidden flex gap-2">
+    <a href="{% url 'documents:create' %}"
+       class="flex-1 rounded-lg bg-slate-900 px-4 py-2 text-center text-sm font-medium text-white hover:bg-slate-800">
+      New document
+    </a>
+    <a href="{% url 'expenses:create' %}"
+       class="flex-1 rounded-lg border border-slate-200 bg-white px-4 py-2 text-center text-sm font-medium text-slate-700 hover:bg-slate-50">
+      Add expense
+    </a>
+  </div>
 
-  <section aria-label="Go to sections">
-    <h2>Go to</h2>
-    <ul>
-      <li><a href="{% url 'documents:list' %}">Documents</a></li>
-      <li><a href="{% url 'contacts:list' %}">Contacts</a></li>
-      <li><a href="{% url 'expenses:list' %}">Expenses</a></li>
-    </ul>
-  </section>
+  <!-- Summary cards -->
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Documents -->
+    <a href="{% url 'documents:list' %}" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300">
+      <div class="flex items-start justify-between">
+        <div>
+          <p class="text-sm font-medium text-slate-600">Documents</p>
+          <p class="mt-2 text-3xl font-semibold tracking-tight">{{ document_count }}</p>
+        </div>
+        <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">View</span>
+      </div>
 
-  <p><strong>Plan:</strong> {% if is_premium %}Premium{% else %}Free{% endif %}</p>
+      {% if not has_documents %}
+        <p class="mt-4 text-sm text-slate-500">
+          No documents yet. Create your first one to store important home info.
+        </p>
+        <div class="mt-4">
+          <span class="text-sm font-medium text-slate-900 hover:underline">Create document →</span>
+        </div>
+      {% else %}
+        <p class="mt-4 text-sm text-slate-500">
+          Keep warranty info, appliances, insurance, and notes in one place.
+        </p>
+      {% endif %}
+    </a>
 
+    <!-- Contacts -->
+    <a href="{% url 'contacts:list' %}" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300">
+      <div class="flex items-start justify-between">
+        <div>
+          <p class="text-sm font-medium text-slate-600">Contacts</p>
+          <p class="mt-2 text-3xl font-semibold tracking-tight">{{ contact_count }}</p>
+        </div>
+        <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">View</span>
+      </div>
+
+      {% if not has_contacts %}
+        <p class="mt-4 text-sm text-slate-500">
+          Add trusted service contacts (electrician, plumber, landlord) so you can find them fast.
+        </p>
+        <div class="mt-4">
+          <span class="text-sm font-medium text-slate-900 hover:underline">Add contact →</span>
+        </div>
+      {% else %}
+        <p class="mt-4 text-sm text-slate-500">
+          Your home service directory, always accessible.
+        </p>
+      {% endif %}
+    </a>
+
+    <!-- Expenses -->
+    <a href="{% url 'expenses:list' %}" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-slate-300">
+      <div class="flex items-start justify-between">
+        <div>
+          <p class="text-sm font-medium text-slate-600">Expenses (this month)</p>
+          <p class="mt-2 text-3xl font-semibold tracking-tight">{{ month_expense_total }}</p>
+          <p class="mt-1 text-sm text-slate-500">{{ month_expense_count }} entries</p>
+        </div>
+        <span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">View</span>
+      </div>
+
+      {% if not has_expenses %}
+        <p class="mt-4 text-sm text-slate-500">
+          Start tracking monthly costs to see where your money goes.
+        </p>
+        <div class="mt-4">
+          <span class="text-sm font-medium text-slate-900 hover:underline">Add expense →</span>
+        </div>
+      {% else %}
+        <p class="mt-4 text-sm text-slate-500">
+          Track groceries, utilities, repairs and other household costs.
+        </p>
+      {% endif %}
+    </a>
+  </div>
+
+  <!-- Plan card -->
+  <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 class="text-lg font-semibold tracking-tight">Plan</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          {% if is_premium %}
+            You’re on Premium. Unlimited documents are enabled.
+          {% else %}
+            You’re on Free. You can store up to 5 documents.
+          {% endif %}
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        {% if is_premium %}
+          <span class="rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-emerald-200">
+            Premium
+          </span>
+        {% else %}
+          <span class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 ring-1 ring-slate-200">
+            Free
+          </span>
+          <a href="{% url 'payments:upgrade' %}"
+             class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400">
+            Upgrade
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Helpful links -->
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h3 class="text-sm font-semibold text-slate-900">Suggested documents</h3>
+      <ul class="mt-3 space-y-2 text-sm text-slate-600">
+        <li>• Insurance policy</li>
+        <li>• Appliance warranties</li>
+        <li>• Lease / fee information</li>
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h3 class="text-sm font-semibold text-slate-900">Suggested contacts</h3>
+      <ul class="mt-3 space-y-2 text-sm text-slate-600">
+        <li>• Electrician</li>
+        <li>• Plumber</li>
+        <li>• Landlord / HOA</li>
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h3 class="text-sm font-semibold text-slate-900">Suggested expenses</h3>
+      <ul class="mt-3 space-y-2 text-sm text-slate-600">
+        <li>• Utilities</li>
+        <li>• Groceries</li>
+        <li>• Repairs</li>
+      </ul>
+    </div>
+  </div>
 {% endblock %}
