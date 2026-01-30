@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -9,8 +10,21 @@ from .models import Document
 
 @login_required
 def document_list(request):
+    q = (request.GET.get("q") or "").strip()
+
     documents = Document.objects.filter(owner=request.user)
-    return render(request, "documents/document_list.html", {"documents": documents})
+
+    if q:
+        documents = documents.filter(
+            Q(title__icontains=q) | Q(description__icontains=q)
+        )
+
+    return render(
+        request,
+        "documents/document_list.html",
+        {"documents": documents, "q": q},
+    )
+
 
 
 @login_required

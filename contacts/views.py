@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.db.models import Q
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -8,8 +10,24 @@ from .models import Contact
 
 @login_required
 def contact_list(request):
+    q = (request.GET.get("q") or "").strip()
+
     contacts = Contact.objects.filter(owner=request.user)
-    return render(request, "contacts/contact_list.html", {"contacts": contacts})
+
+    if q:
+        contacts = contacts.filter(
+            Q(name__icontains=q)
+            | Q(phone__icontains=q)
+            | Q(email__icontains=q)
+            | Q(notes__icontains=q)
+        )
+
+    return render(
+        request,
+        "contacts/contact_list.html",
+        {"contacts": contacts, "q": q},
+    )
+
 
 
 @login_required
