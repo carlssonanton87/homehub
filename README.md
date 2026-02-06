@@ -12,22 +12,48 @@
 ![Homehub shown on a range of devices](readme_assets/images/devices.png)
 ---
 
-## Table of Contents
-- [Project Goals](#project-goals)
-- [Target Audience](#target-audience)
-- [User Experience](#user-experience)
-  - [User Stories](#user-stories)
-  - [Design Choices](#design-choices)
-  - [Accessibility](#accessibility)
-- [Features](#features)
-  - [Existing Features](#existing-features)
-  - [Future Features](#future-features)
-- [Data Model](#data-model)
-- [Security](#security)
-- [Technologies Used](#technologies-used)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Credits](#credits)
+## Key Features
+
+- User authentication (registration, login, logout)
+- Clean Tailwind UI (Notion-inspired)
+- Documents:
+  - Create / view / edit / delete
+  - Search functionality
+  - Free plan document limit (Premium removes the limit)
+- Contacts:
+  - Store home-related contacts (plumber, electrician, landlord etc.)
+  - Full CRUD + search
+- Expenses:
+  - Monthly expense tracking
+  - Month filter + monthly totals
+- Payments:
+  - Stripe checkout (test mode)
+  - Premium status enabled after successful payment
+- Feedback messages and confirmation flows
+- Responsive design (mobile, tablet, desktop)
+
+## Contents
+
+1. [Features](#features)
+2. [User Experience (UX)](#user-experience-ux)
+   - [Design Choices](#design-choices)
+   - [Typography](#typography)
+   - [User Stories](#user-stories)
+   - [Wireframes](#wireframes)
+3. [Information Architecture](#information-architecture)
+   - [Database Schema Diagram](#database-schema-diagram)
+4. [Technologies Used](#technologies-used)
+5. [Agile Methodology](#agile-methodology)
+   - [Kanban Workflow](#kanban-workflow)
+   - [Project Evolution](#project-evolution)
+6. [Version Control](#version-control)
+7. [Deployment](#deployment)
+8. [Testing](#testing)
+9. [Known Issues and Future Features](#known-issues-and-future-features)
+10. [Credits](#credits)
+    - [Resources Used](#resources-used)
+    - [Code Used](#code-used)
+    - [Acknowledgements](#acknowledgements)
 
 ---
 
