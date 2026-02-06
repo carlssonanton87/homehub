@@ -56,6 +56,40 @@
     - [Acknowledgements](#acknowledgements)
 
 ---
+## Features
+
+### Existing Features
+
+1. **User Registration & Authentication**
+   - Secure signup, login, logout
+   - User data is private (users can only access their own content)
+
+2. **Documents Management**
+   - Add, edit, view, and delete documents
+   - Search documents by title and description
+   - Free plan document limit (Premium removes the limit)
+
+3. **Contacts Management**
+   - Add, edit, and delete contacts
+   - Store key household contacts (e.g. electrician, plumber)
+   - Search contacts by name, role, or notes
+
+4. **Expenses Tracking**
+   - Add, edit, and delete expenses
+   - Filter expenses by month
+   - Monthly totals displayed clearly
+
+5. **Payments & Subscription**
+   - Upgrade to Premium through Stripe Checkout
+   - Premium status displayed across the UI
+   - Premium removes free plan document limit
+
+6. **Admin Panel**
+   - Django admin for user and content management
+
+[Go to Contents](#contents)
+
+---
 
 ## Project Goals
 ### Business Goals
@@ -77,39 +111,66 @@
 
 ---
 
-## User Experience
-
-### User Stories
-**Authentication**
-- As a user, I can register, log in and log out so that my data is private.
-- As a logged-out user, I can see a landing page prompting me to log in/sign up.
-
-**Documents**
-- As a user, I can create, view, edit and delete my documents.
-- As a free user, I can store up to 5 documents.
-- As a Premium user, I can store more than 5 documents.
-
-**Contacts**
-- As a user, I can create, view, edit and delete contacts.
-- As a user, I must provide at least one contact method (phone or email).
-
-**Expenses**
-- As a user, I can add, edit and delete expenses.
-- As a user, I can filter expenses by month and see a monthly total.
-
-**Payments**
-- As a user, I can upgrade to Premium via Stripe.
-- As a user, I receive clear feedback on successful or cancelled payments.
+## User Experience (UX)
 
 ### Design Choices
-- **Information hierarchy:** Dashboard provides a monthly overview and shortcuts.
-- **User control:** Clear navigation, confirmations and feedback messages.
-- **Consistency:** Reusable base template with shared navigation and layout.
 
-### Accessibility
-- A “Skip to main content” link is included in the base layout.
-- Semantic HTML is used (headings, lists, navigation landmarks).
-- Forms use labels and clear error messages.
+Homehub is designed as a clean digital home organizer with a calm, minimal interface inspired by productivity tools.
+
+#### Color Scheme
+- Neutral base with subtle borders and soft backgrounds
+- Accent color used for primary actions and navigation focus
+
+> Add screenshot:
+`readme_assets/images/color_palette.png`
+
+#### Typography
+- Clean typography for readability (modern sans-serif / Inter-like)
+- Clear hierarchy for headings, labels, and helper text
+
+#### User Stories
+
+##### Visitors
+- As a visitor, I can view the landing page but cannot access private content.
+
+##### Registered Users
+- As a user, I can register an account.
+- As a user, I can log in and log out securely.
+- As a user, I can create, edit and delete my own documents.
+- As a user, I can store key contacts for my household.
+- As a user, I can track monthly household expenses.
+- As a user, I receive confirmation messages when actions succeed or fail.
+- As a user, I can upgrade to Premium to unlock unlimited documents.
+
+##### Admin Users
+- As an admin, I can manage users and data via Django admin.
+
+#### Wireframes
+
+<details>
+<summary>Landing Page</summary>
+<br>
+
+![Landing Page](readme_assets/wireframes/landing.png)
+</details>
+
+<details>
+<summary>Dashboard</summary>
+<br>
+
+![Dashboard](readme_assets/wireframes/dashboard.png)
+</details>
+
+<details>
+<summary>Documents</summary>
+<br>
+
+![Documents](readme_assets/wireframes/documents.png)
+</details>
+
+Wireframes were created using (Figma / Visily.ai).
+
+[Go to Contents](#contents)
 
 ---
 
