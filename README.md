@@ -251,6 +251,103 @@ For version control, Git was used to track changes through frequent commits:
 [Go to Contents](#contents)
 
 ---
+## Deployment
+
+Homehub was deployed on Heroku using GitHub integration for automatic deployment.
+
+1. Create a Heroku app
+2. Connect the GitHub repository
+3. Enable automatic deploys from `main`
+4. Add environment variables (Config Vars):
+   - `SECRET_KEY`
+   - `DATABASE_URL`
+   - `DEBUG`
+   - `ALLOWED_HOSTS`
+   - `CSRF_TRUSTED_ORIGINS`
+   - `STRIPE_PUBLIC_KEY`
+   - `STRIPE_SECRET_KEY`
+   - `STRIPE_PRICE_ID`
+5. Add Heroku Postgres add-on
+6. Run migrations:
+   - `python manage.py migrate`
+7. Optional: seed demo user data:
+   - `python manage.py seed_demo`
+
+---
+
+
+### Forking and Local Setup
+
+If you’d like to fork this repository and set it up locally, follow these steps:
+
+1. **Fork the Repository**:  
+   - Go to the GitHub repository and click on "Fork" to create a copy in your account.
+
+2. **Clone Your Fork**:  
+   - Click "Code" on your forked repository, copy the URL, then open your terminal and run:
+     ```
+     git clone [URL you copied]
+     ```
+
+3. **Set Up Virtual Environment**:  
+   - Navigate to the project directory:
+     ```
+     cd [project directory name]
+     ```
+   - Create a virtual environment:
+     ```
+     python3 -m venv venv
+     ```
+   - Activate the virtual environment:
+     - On Windows: `venv\Scripts\activate`
+     - On macOS and Linux: `source venv/bin/activate`
+
+4. **Install Dependencies**:  
+   - With the virtual environment activated, install the required packages:
+     ```
+     pip install -r requirements.txt
+     ```
+
+5. **Set Up Environment Variables**:  
+   - Create an `env.py` file in the root directory and add the following environment variables based on `settings.py` requirements:
+     ```python
+     SECRET_KEY = 'your_secret_key'
+     DATABASE_URL = 'your_database_url'
+     CLOUDINARY_URL = 'your_cloudinary_url?secure=true'
+     DEVELOPMENT = 'True'
+     ```
+   - Setting `DEVELOPMENT = 'True'` enables `DEBUG=True` in local development, allowing you to test and debug safely.
+   - Adding `secure=true` to the `CLOUDINARY_URL` ensures media files are delivered over HTTPS, providing secure access to images and assets.
+
+6. **Apply Migrations**:  
+   - Run migrations to set up the database schema:
+     ```
+     python3 manage.py makemigrations
+     python3 manage.py migrate
+     ```
+
+7. **Collect Static Files (Optional for Local Testing)**:  
+   - If you want to test static files locally in a production-like setup, you can run:
+     ```bash
+     python3 manage.py collectstatic
+     ```
+   - This is typically required in production but can be helpful to verify static files locally.
+
+8. **Run the Development Server**:  
+   - Start the server locally:
+     ```
+     python3 manage.py runserver 8001
+     ```
+   - Note: This project initially used port `8000` but now uses port `8001` to avoid conflicts with other services.
+   - Open a browser and go to `http://127.0.0.1:8001/` to view the application locally.
+
+---
+
+This enhanced setup provides a clear process for cloning, setting up environment variables, and preparing the local environment based on your project’s specific configuration requirements.
+
+---
+
+[Go to Contents](#contents)
 
 ## Security
 - Authentication is required for all user data features.
