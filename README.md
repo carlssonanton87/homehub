@@ -4,8 +4,8 @@ Homehub is a full-stack Django web application that helps users manage home-rela
 Users can store documents, keep a directory of important contacts (e.g., electrician, plumber), track expenses by month,
 and upgrade to Premium via Stripe to unlock additional capacity.
 
-Live site: (production link after deployment)  
-Repository: ( GitHub link)
+Live site: [(Homehub)  ](https://homehub-anton-5399ce3434e0.herokuapp.com/)
+Repository: [( GitHub link)](https://github.com/carlssonanton87/homehub)
 
 ---
 
@@ -174,6 +174,8 @@ Homehub uses a relational database. Each user owns their own data.
 
 ## Testing
 Automated tests are implemented using Django’s test framework.
+For detailed testing documentation, see [TESTING.md](TESTING.md).
+
 
 ### Automated Tests
 - Authentication: signup flow and login-required redirects
