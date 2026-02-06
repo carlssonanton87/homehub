@@ -91,19 +91,6 @@
 
 ---
 
-## Project Goals
-### Business Goals
-- Provide a simple, intuitive platform to store home information securely.
-- Encourage upgrades by offering a meaningful Premium benefit (increased document capacity).
-
-### User Goals
-- Store and find home documents quickly.
-- Maintain a reliable list of home-related contacts.
-- Track expenses by month and see totals.
-- Upgrade to Premium with clear purchase feedback.
-
----
-
 ## Target Audience
 - Home owners and renters who want one place for home information.
 - Families managing recurring household costs and services.
@@ -349,6 +336,60 @@ This enhanced setup provides a clear process for cloning, setting up environment
 
 [Go to Contents](#contents)
 
+## Testing
+
+Comprehensive testing has been performed to validate functionality, usability, and reliability.
+
+For detailed test cases, validation screenshots, and device testing, please refer to the  
+👉 **[TESTING.md](TESTING.md)** file.
+
+[Go to Contents](#contents)
+
+---
+## Testing
+
+Comprehensive testing has been performed to validate functionality, usability, and reliability.
+
+For detailed test cases, validation screenshots, and device testing, please refer to the  
+👉 **[TESTING.md](TESTING.md)** file.
+
+[Go to Contents](#contents)
+
+---
+
+## Known Issues and Future Features
+
+### Future Features
+- Expense analytics (categories, charts, trends)
+- Optional file uploads for documents (Cloudinary/S3)
+- Reminders for renewals and home services
+- Export expenses to CSV
+
+### Known Issues
+- No recurring expense support yet
+- No document file upload (text-only documents)
+
+---
+
+## Credits
+
+### Resources Used
+- Django Documentation
+- Tailwind CSS Documentation
+- Stripe Documentation
+- Code Institute course material
+
+### Code Used
+- Based on Code Institute Django project patterns
+- Stripe integration based on official Stripe documentation
+
+### Acknowledgements
+- Code Institute
+- Mentor feedback
+- ChatGPT for troubleshooting and documentation support
+
+---
+
 ## Security
 - Authentication is required for all user data features.
 - Owner-only permissions are enforced by filtering objects by `owner=request.user`.
@@ -356,84 +397,19 @@ This enhanced setup provides a clear process for cloning, setting up environment
 - Production settings disable DEBUG and use ALLOWED_HOSTS from the environment.
 - POST is used for logout and payments to reduce CSRF risk.
 
+
+
+## Project Goals
+### Business Goals
+- Provide a simple, intuitive platform to store home information securely.
+- Encourage upgrades by offering a meaningful Premium benefit (increased document capacity).
+
+### User Goals
+- Store and find home documents quickly.
+- Maintain a reliable list of home-related contacts.
+- Track expenses by month and see totals.
+- Upgrade to Premium with clear purchase feedback.
+
 ---
 
-## Technologies Used
-- Python / Django
-- HTML / CSS
-- SQLite (development)
-- PostgreSQL (production)
-- Stripe (payments)
-- Gunicorn (production server)
-- Whitenoise (static file serving)
-- Git / GitHub (version control)
 
----
-
-## Testing
-Automated tests are implemented using Django’s test framework.
-For detailed testing documentation, see [TESTING.md](TESTING.md).
-
-
-### Automated Tests
-- Authentication: signup flow and login-required redirects
-- Documents: CRUD behaviour and owner-only access protection
-- Subscription: automatic creation for new users
-- Premium gating: free users blocked from creating a 6th document
-
-
-
-### Manual Tests
-
- - Register, login, logout
-
- - Create/edit/delete documents, contacts, expenses
-
- - Verify user cannot access another user’s data
-
- - Verify free limit blocks after 5 documents
-
- - Stripe upgrade test (test card 4242 4242 4242 4242)
-
- - Success/cancel messaging visible to user
----
-
-## Deployment
-The project is configured for cloud hosting.
-
-### Environment Variables
-Required:
-- SECRET_KEY
-- DEBUG
-- ALLOWED_HOSTS
-- DATABASE_URL (production)
-- STRIPE_PUBLIC_KEY
-- STRIPE_SECRET_KEY
-- STRIPE_PRICE_ID
-
-### Local Setup
-1. Clone the repository
-2. Create and activate a virtual environment
-3. Install dependencies:
-
-### Production (high-level steps)
-
-Set environment variables on the hosting platform
-
-Configure DATABASE_URL for the managed Postgres database
-
-Run migrations on the platform
-
-Collect static files:
-
-python manage.py collectstatic
-
-Start the web process using Gunicorn (Procfile)
-
-### Credits
-
-Django documentation for authentication and testing patterns.
-
-Stripe documentation for Checkout integration.
-
-All code in this project was written for this application and is not copied from a walkthrough project.
