@@ -221,6 +221,37 @@ Homehub uses a user-owned content model:
 
 ---
 
+## Agile Methodology
+
+This project was developed using Agile methodology and tracked using GitHub Issues / Projects.
+
+### Kanban Workflow
+> Add your board link here:
+- Kanban Board: `https://github.com/users/carlssonanton87/projects/<ID>`
+
+### Project Evolution
+- Planned epics and user stories first
+- Implemented core CRUD functionality
+- Added Premium subscription gate (Stripe)
+- Iterated UI/UX with Tailwind and responsive improvements
+- Deployed to Heroku with auto-deploy from GitHub
+
+[Go to Contents](#contents)
+
+---
+
+## Version Control
+
+For version control, Git was used to track changes through frequent commits:
+
+- `git add .`
+- `git commit -m "message"`
+- `git push`
+
+[Go to Contents](#contents)
+
+---
+
 ## Security
 - Authentication is required for all user data features.
 - Owner-only permissions are enforced by filtering objects by `owner=request.user`.
