@@ -174,70 +174,50 @@ Wireframes were created using (Figma / Visily.ai).
 
 ---
 
-## Features
+## Information Architecture
 
-### Existing Features
-- User registration, login and logout.
-- Dashboard with:
-  - Document count
-  - Contact count
-  - Current month expense count + total
-  - Quick actions
-- Documents CRUD with owner-only permissions and validation.
-- Contacts CRUD with owner-only permissions and validation.
-- Expenses CRUD with month filtering and totals.
-- Premium gating: Free users limited to 5 documents.
-- Stripe Checkout for Premium upgrade with success/cancel feedback.
-- Automated tests for key logic (auth, permissions, gating, subscription creation).
+### Database Schema Diagram
 
-### Future Features
-- File uploads for documents (PDF/images) with categories.
-- Search and filtering for documents/contacts.
-- Webhooks for Stripe to handle asynchronous payment events robustly.
-- Export monthly expense report (CSV/PDF).
-- User profile settings (household members, shared access).
+Homehub uses a user-owned content model:
+- Each user can have many documents, contacts, and expenses.
+- Each record belongs to one user.
+- Premium state is stored in a subscription model linked to the user.
+
+![Homehub Database ERD Diagram](readme_assets/images/erd.png)
+
+[Go to Contents](#contents)
 
 ---
 
-## Data Model
-Homehub uses a relational database. Each user owns their own data.
+## Technologies Used
 
-### Entity Relationship Overview
-- **User**
-  - has many **Document**
-  - has many **Contact**
-  - has many **Expense**
-  - has one **Subscription**
+### Languages and Frameworks
 
-### Models
-**Document**
-- owner (FK → User)
-- title
-- description
-- created_at / updated_at
+- [![HTML](https://img.shields.io/badge/HTML-5-grey?logo=html5&logoColor=E34F26)](https://en.wikipedia.org/wiki/HTML5)
+- [![CSS](https://img.shields.io/badge/Tailwind_CSS-grey?logo=tailwindcss&logoColor=38B2AC)](https://tailwindcss.com/)
+- [![JavaScript](https://img.shields.io/badge/JavaScript-grey?logo=javascript&logoColor=F7DF1E)](https://www.javascript.com)
+- [![Python](https://img.shields.io/badge/Python-3.x-grey?logo=python&logoColor=3776AB)](https://www.python.org)
+- [![Django](https://img.shields.io/badge/Django-grey?logo=django&logoColor=092E20)](https://www.djangoproject.com/)
 
-**Contact**
-- owner (FK → User)
-- name
-- role_type (choice)
-- phone / email
-- notes
-- created_at / updated_at
+### Databases
 
-**Expense**
-- owner (FK → User)
-- date
-- category (choice)
-- amount
-- note
-- created_at / updated_at
+- [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-grey?logo=postgresql&logoColor=4169E1)](https://www.postgresql.org/) (production)
 
-**Subscription**
-- owner (OneToOne → User)
-- is_premium
-- stripe_customer_id (optional)
-- stripe_subscription_id (optional)
-- updated_at
+### Other Tools
+
+- [![Git](https://img.shields.io/badge/Git-grey?logo=git&logoColor=F05032)](https://git-scm.com)
+- [![GitHub](https://img.shields.io/badge/GitHub-grey?logo=github&logoColor=181717)](https://github.com)
+- [![Heroku](https://img.shields.io/badge/Heroku-grey?logo=heroku&logoColor=430098)](https://www.heroku.com)
+- [![Stripe](https://img.shields.io/badge/Stripe-grey?logo=stripe&logoColor=635BFF)](https://stripe.com/)
+- [![WhiteNoise](https://img.shields.io/badge/WhiteNoise-grey?logo=python&logoColor=FFFFFF)](https://whitenoise.readthedocs.io)
+- [![W3C HTML Validator](https://img.shields.io/badge/W3C_HTML_Validator-grey?logo=w3c&logoColor=005A9C)](https://validator.w3.org/)
+- [![W3C CSS Validator](https://img.shields.io/badge/W3C_CSS_Validator-grey?logo=w3c&logoColor=005A9C)](https://jigsaw.w3.org/css-validator/)
+- [![JSHint](https://img.shields.io/badge/JSHint-grey?logo=javascript&logoColor=F7DF1E)](https://jshint.com/)
+- [![PEP8 Validator](https://img.shields.io/badge/PEP8_Validator-grey?logo=python&logoColor=A44200)](https://pep8ci.herokuapp.com/)
+- [![Am I Responsive](https://img.shields.io/badge/Am_I_Responsive-grey?logo=responsive&logoColor=0078D4)](https://ui.dev/amiresponsive)
+- [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-grey?logo=stackoverflow&logoColor=FE7A16)](https://stackoverflow.com/)
+
+[Go to Contents](#contents)
 
 ---
 
