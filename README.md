@@ -1,12 +1,15 @@
-# Homehub
+# Homehub 🏡
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/carlssonanton87/homehub)
+![GitHub last commit](https://img.shields.io/github/last-commit/carlssonanton87/homehub)
+![GitHub repo size](https://img.shields.io/github/repo-size/carlssonanton87/homehub)
 
-Homehub is a full-stack Django web application that helps users manage home-related information in one secure place.
-Users can store documents, keep a directory of important contacts (e.g., electrician, plumber), track expenses by month,
-and upgrade to Premium via Stripe to unlock additional capacity.
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=carlssonanton87&repo=homehub&layout=compact)
 
-Live site: [(Homehub)  ](https://homehub-anton-5399ce3434e0.herokuapp.com/)
-Repository: [( GitHub link)](https://github.com/carlssonanton87/homehub)
+**Homehub** is a full-stack Django web application designed to help users organize important home information in one place. Users can securely log in to manage **documents**, **contacts**, and **monthly expenses**, and optionally upgrade to **Premium** via Stripe to unlock unlimited document storage.
 
+[Live Demo](https://homehub-anton-5399ce3434e0.herokuapp.com/)
+
+![Homehub shown on a range of devices](readme_assets/images/devices.png)
 ---
 
 ## Table of Contents
