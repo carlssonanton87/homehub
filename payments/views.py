@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 from .models import Subscription
 
 
@@ -53,8 +57,8 @@ def create_checkout_session(request):
         )
         return redirect(session.url)
 
-    except Exception:
-        # I send the user back with a friendly message if Stripe fails for any reason.
+    except Exception as e:
+        logger.exception("Stripe checkout failed: %s", e)
         from django.contrib import messages
         messages.error(request, "Something went wrong. Please try again in a moment.")
         return redirect("payments:upgrade")
