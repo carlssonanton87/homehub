@@ -158,7 +158,7 @@ Homehub is designed as a clean digital home organizer with a calm, minimal inter
 <summary>Add Documents</summary>
 <br>
 
-![Documents](readme_assets/images/wireframes/adddocuments.png)
+![Documents](readme_assets/images/wireframes/addDocuments.png)
 </details>
 
 <details>
