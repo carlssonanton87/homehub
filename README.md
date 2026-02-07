@@ -183,6 +183,8 @@ Homehub uses a user-owned content model:
 - Each record belongs to one user.
 - Premium state is stored in a subscription model linked to the user.
 
+The diagram below illustrates the database structure and relationships used in Homehub.
+
 ![Homehub Database ERD Diagram](readme_assets/images/erd.png)
 
 [Go to Contents](#contents)
