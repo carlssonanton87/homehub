@@ -125,18 +125,17 @@
 
             {% else %}
               {# This is the main CTA area for free users. #}
-              <form method="post" class="space-y-3">
-                {% csrf_token %}
+              <form method="post" action="{% url 'payments:checkout' %}" class="space-y-3">
+  {% csrf_token %}
+  <button type="submit" class="{{ UI.btn_primary }} w-full">
+    Upgrade now
+  </button>
 
-                {# NOTE: If your view expects a specific button name/value, add it here. #}
-                <button type="submit" class="{{ UI.btn_primary }} w-full">
-                  Upgrade now
-                </button>
+  <a href="{% url 'documents:list' %}" class="{{ UI.btn_secondary }} w-full">
+    Keep Free for now
+  </a>
+</form>
 
-                <a href="{% url 'documents:list' %}" class="{{ UI.btn_secondary }} w-full">
-                  Keep Free for now
-                </a>
-              </form>
 
               <p class="mt-3 text-xs text-slate-500">
                 By upgrading you agree to secure payment processing. Cancel anytime.
