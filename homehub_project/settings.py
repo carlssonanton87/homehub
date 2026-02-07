@@ -74,6 +74,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",  
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                 # I add this so UI classes are available in every template.
+                "core.context_processors.ui",
             ],
         },
     },
