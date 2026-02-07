@@ -107,8 +107,7 @@ Homehub is designed as a clean digital home organizer with a calm, minimal inter
 - Neutral base with subtle borders and soft backgrounds
 - Accent color used for primary actions and navigation focus
 
-> Add screenshot:
-`readme_assets/images/color_palette.png`
+![Homehub Color Palette](readme_assets/images/color_palette.png)
 
 #### Typography
 - Clean typography for readability (modern sans-serif / Inter-like)
