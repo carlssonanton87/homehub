@@ -1,4 +1,5 @@
-<nav class="border-b bg-white">
+{# I keep the navbar sticky so navigation is always easy on longer pages. #}
+<nav class="sticky top-0 z-40 border-b bg-white/90 backdrop-blur">
   <div class="mx-auto max-w-5xl px-4 py-3">
     <div class="flex items-center justify-between">
       <a href="{% url 'core:home' %}" class="font-semibold tracking-tight text-slate-900">
@@ -77,18 +78,18 @@
 
       <!-- Mobile toggle -->
       <button
-        type="button"
-        class="md:hidden rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-        aria-label="Toggle navigation menu"
-
-        aria-controls="mobile-menu"
-        aria-expanded="false"
-        onclick="const m=document.getElementById('mobile-menu'); const e=this.getAttribute('aria-expanded')==='true'; this.setAttribute('aria-expanded', String(!e)); m.classList.toggle('hidden');"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+  id="mobile-menu-button"
+  type="button"
+  class="md:hidden rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+  aria-label="Toggle navigation menu"
+  aria-controls="mobile-menu"
+  aria-expanded="false"
+  onclick="toggleMobileMenu('mobile-menu-button', 'mobile-menu')"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+</button>
     </div>
 
     <!-- Mobile menu -->

@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Homehub{% endblock %}</title>
 
-  <!-- Inter font -->
+  {# I use Inter to get a clean, modern UI that matches the “Notion-like” vibe. #}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Tailwind (CDN) -->
+  {# I use Tailwind CDN for speed while building the project. #}
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind config (tiny design system) -->
+  {# I keep a tiny Tailwind config here so I can add small design tokens if needed. #}
   <script>
     tailwind.config = {
       theme: {
@@ -29,13 +29,13 @@
   </script>
 
   <style>
-    /* Small global polish */
+    /* I apply the font globally so everything looks consistent without repeating classes. */
     html { font-family: Inter, ui-sans-serif, system-ui; }
   </style>
 </head>
 
 <body class="bg-slate-50 text-slate-900">
-  <!-- Skip link -->
+  {# I add a skip link for accessibility and keyboard users. #}
   <a href="#main-content"
      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow">
     Skip to main content
@@ -43,9 +43,12 @@
 
   {% include "includes/navbar.html" %}
 
-  <main id="main-content" class="mx-auto max-w-5xl px-4 py-8">
+  {# I use max-w-6xl so the layout matches the landing page width and feels less cramped. #}
+  <main id="main-content" class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+
+    {# I keep messages near the top so feedback is always visible after actions. #}
     {% if messages %}
-      <div class="space-y-2 mb-6" aria-label="messages">
+      <div class="mb-6 space-y-2" role="status" aria-live="polite" aria-label="messages">
         {% for message in messages %}
           <div class="rounded-xl border bg-white px-4 py-3 text-sm shadow-sm
                       {% if message.tags == 'success' %}border-emerald-200{% endif %}
@@ -59,14 +62,27 @@
     {% endif %}
 
     <div class="space-y-6">
-  {% block content %}{% endblock %}
-</div>
+      {% block content %}{% endblock %}
+    </div>
   </main>
 
   <footer class="border-t bg-white">
-    <div class="mx-auto max-w-5xl px-4 py-6 text-sm text-slate-500">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500 sm:px-6 lg:px-8">
       &copy; {% now "Y" %} Homehub
     </div>
   </footer>
+
+  {# I keep the mobile menu toggle as a small script so the HTML stays readable. #}
+  <script>
+    function toggleMobileMenu(btnId, menuId) {
+      const btn = document.getElementById(btnId);
+      const menu = document.getElementById(menuId);
+      if (!btn || !menu) return;
+
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!expanded));
+      menu.classList.toggle("hidden");
+    }
+  </script>
 </body>
 </html>

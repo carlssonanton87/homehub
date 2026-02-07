@@ -1,6 +1,10 @@
-{# Central place for shared Tailwind classes #}
+{# I keep these shared Tailwind classes in one place so the UI stays consistent. #}
 {% comment %}
 Usage example:
-<button class="{{ UI.btn_primary }}">Save</button>
-<input class="{{ UI.input }}" ...>
+  {% include "includes/ui.html" %}
+  <button class="{{ UI.btn_primary }}">Save</button>
+  <input class="{{ UI.input }}" ...>
 {% endcomment %}
+
+{% with UI=UI|default:{} %}
+{% endwith %}
