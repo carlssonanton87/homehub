@@ -3,13 +3,12 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/carlssonanton87/homehub)
 ![GitHub repo size](https://img.shields.io/github/repo-size/carlssonanton87/homehub)
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=carlssonanton87&repo=homehub&layout=compact)
 
 **Homehub** is a full-stack Django web application designed to help users organize important home information in one place. Users can securely log in to manage **documents**, **contacts**, and **monthly expenses**, and optionally upgrade to **Premium** via Stripe to unlock unlimited document storage.
 
 [Live Demo](https://homehub-anton-5399ce3434e0.herokuapp.com/)
 
-![Homehub shown on a range of devices](readme_assets/images/devices.png)
+[Homehub shown on a range of devices](readme_assets/images/devices.png)
 ---
 
 ## Key Features
@@ -138,24 +137,38 @@ Homehub is designed as a clean digital home organizer with a calm, minimal inter
 <summary>Landing Page</summary>
 <br>
 
-![Landing Page](readme_assets/wireframes/landing.png)
+![Landing Page](readme_assets/images/wireframes/landing.png)
 </details>
 
 <details>
 <summary>Dashboard</summary>
 <br>
 
-![Dashboard](readme_assets/wireframes/dashboard.png)
+![Dashboard](readme_assets/images/wireframes/dashboard.png)
 </details>
 
 <details>
 <summary>Documents</summary>
 <br>
 
-![Documents](readme_assets/wireframes/documents.png)
+![Documents](readme_assets/images/wireframes/documents.png)
 </details>
 
-Wireframes were created using (Figma / Visily.ai).
+<details>
+<summary>Add Documents</summary>
+<br>
+
+![Documents](readme_assets/images/wireframes/adddocuments.png)
+</details>
+
+<details>
+<summary>Mobile View</summary>
+<br>
+
+![Documents](readme_assets/images/wireframes/mobileview.png)
+</details>
+
+Wireframes were created using (Visily.ai).
 
 [Go to Contents](#contents)
 
@@ -345,15 +358,6 @@ For detailed test cases, validation screenshots, and device testing, please refe
 
 [Go to Contents](#contents)
 
----
-## Testing
-
-Comprehensive testing has been performed to validate functionality, usability, and reliability.
-
-For detailed test cases, validation screenshots, and device testing, please refer to the  
-👉 **[TESTING.md](TESTING.md)** file.
-
-[Go to Contents](#contents)
 
 ---
 
