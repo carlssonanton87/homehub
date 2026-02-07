@@ -3,7 +3,9 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
 from .forms import DocumentForm
 from .models import Document
 
@@ -81,13 +83,12 @@ def document_update(request, pk):
     return render(request, "documents/document_form.html", {"form": form, "mode": "update", "document": document})
 
 
-@login_required
-def document_delete(request, pk):
-    document = get_object_or_404(Document, pk=pk, owner=request.user)
 
-    if request.method == "POST":
-        document.delete()
-        messages.success(request, "Document deleted.")
-        return redirect("documents:list")
+class DocumentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Document
+    template_name = "documents/document_confirm_delete.html"
+    success_url = reverse_lazy("documents:list")
 
-    return render(request, "documents/document_confirm_delete.html", {"document": document})
+    # I make sure users can only delete their own documents.
+    def get_queryset(self):
+        return Document.objects.filter(owner=self.request.user)

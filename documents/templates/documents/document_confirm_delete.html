@@ -1,30 +1,20 @@
 {% extends "base.html" %}
-{% block title %}Delete contact | Homehub{% endblock %}
+{% block title %}Delete document | Homehub{% endblock %}
 
 {% block content %}
-  <div class="mx-auto max-w-xl">
-    <div class="rounded-2xl border border-rose-200 bg-white p-6 shadow-sm">
-      <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
-        <strong>Warning:</strong> This action cannot be undone.
-      </div>
+  {# I confirm destructive actions so users don’t delete things by mistake. #}
+  <div class="{{ UI.card }}">
+    <h1 class="text-xl font-semibold tracking-tight text-slate-900">Delete document</h1>
 
-      <h1 class="mt-5 text-xl font-semibold tracking-tight">Delete contact</h1>
-      <p class="mt-1 text-sm text-slate-600">
-        Are you sure you want to delete <span class="font-medium text-slate-900">“{{ object.name }}”</span>?
-      </p>
+    <p class="mt-2 text-slate-600">
+      Are you sure you want to delete <span class="font-medium text-slate-900">"{{ object.title }}"</span>?
+      This action can’t be undone.
+    </p>
 
-      <form method="post" class="mt-6 flex items-center gap-3">
-        {% csrf_token %}
-        <button type="submit"
-                class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-300">
-          Yes, delete
-        </button>
-
-        <a href="{% url 'contacts:detail' object.pk %}"
-           class="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
-          Cancel
-        </a>
-      </form>
-    </div>
+    <form method="post" class="mt-6 flex gap-3">
+      {% csrf_token %}
+      <button type="submit" class="{{ UI.btn_primary }}">Yes, delete</button>
+      <a href="{% url 'documents:list' %}" class="{{ UI.btn_secondary }}">Cancel</a>
+    </form>
   </div>
 {% endblock %}
