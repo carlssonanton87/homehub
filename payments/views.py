@@ -24,11 +24,6 @@ def upgrade(request):
             "is_premium": is_premium,
         },
     )
-price_id = getattr(settings, "STRIPE_PRICE_ID", None)
-
-if not price_id or not str(price_id).startswith("price_"):
-    messages.error(request, "Payment configuration error. Please contact support.")
-    return redirect("payments:upgrade")
 
 
 @login_required
