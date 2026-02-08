@@ -81,6 +81,11 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATES[0]["OPTIONS"]["context_processors"] += [
+    "core.context_processors.premium_status",
+]
+
+
 WSGI_APPLICATION = 'homehub_project.wsgi.application'
 
 

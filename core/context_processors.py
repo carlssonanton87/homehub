@@ -3,6 +3,15 @@ I keep all shared Tailwind UI classes here so the design stays consistent
 and easy to change across the whole app.
 """
 
+def premium_status(request):
+    # I expose premium status globally so navbar and all templates stay consistent.
+    is_premium = False
+    if request.user.is_authenticated:
+        sub = getattr(request.user, "subscription", None)
+        is_premium = bool(sub and sub.is_premium)
+    return {"is_premium": is_premium}
+
+
 def ui(request):
     return {
         "UI": {

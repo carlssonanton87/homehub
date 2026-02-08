@@ -78,9 +78,11 @@ def cancel(request):
 
 @csrf_exempt
 def stripe_webhook(request):
-    # I verify the webhook signature so only Stripe can call this endpoint.
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE", "")
+
+    logger.info("Stripe webhook received. sig_header_present=%s payload_len=%s",
+                bool(sig_header), len(payload))
 
     try:
         event = stripe.Webhook.construct_event(
@@ -88,10 +90,15 @@ def stripe_webhook(request):
             sig_header=sig_header,
             secret=settings.STRIPE_WEBHOOK_SECRET,
         )
-    except (ValueError, stripe.error.SignatureVerificationError):
+    except ValueError as e:
+        logger.exception("Stripe webhook invalid payload: %s", e)
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        logger.exception("Stripe webhook signature verification failed: %s", e)
         return HttpResponse(status=400)
 
-    # I upgrade the user when Stripe confirms checkout completed.
+    logger.info("Stripe webhook verified. type=%s", event["type"])
+
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
 
@@ -99,11 +106,18 @@ def stripe_webhook(request):
         customer_id = session.get("customer")
         stripe_sub_id = session.get("subscription")
 
+        logger.info("checkout.session.completed metadata.user_id=%s customer=%s subscription=%s",
+                    user_id, customer_id, stripe_sub_id)
+
         if user_id:
-            sub, _ = Subscription.objects.get_or_create(owner_id=user_id)
+            sub, created = Subscription.objects.get_or_create(owner_id=user_id)
             sub.is_premium = True
             sub.stripe_customer_id = customer_id or ""
             sub.stripe_subscription_id = stripe_sub_id or ""
             sub.save()
+            logger.info("Subscription updated. user_id=%s created=%s is_premium=%s",
+                        user_id, created, sub.is_premium)
+        else:
+            logger.warning("checkout.session.completed missing metadata.user_id")
 
     return HttpResponse(status=200)
