@@ -3,6 +3,8 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 import logging
 logger = logging.getLogger(__name__)
@@ -73,3 +75,35 @@ def success(request):
 @login_required
 def cancel(request):
     return render(request, "payments/cancel.html")
+
+@csrf_exempt
+def stripe_webhook(request):
+    # I verify the webhook signature so only Stripe can call this endpoint.
+    payload = request.body
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE", "")
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload=payload,
+            sig_header=sig_header,
+            secret=settings.STRIPE_WEBHOOK_SECRET,
+        )
+    except (ValueError, stripe.error.SignatureVerificationError):
+        return HttpResponse(status=400)
+
+    # I upgrade the user when Stripe confirms checkout completed.
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+
+        user_id = session.get("metadata", {}).get("user_id")
+        customer_id = session.get("customer")
+        stripe_sub_id = session.get("subscription")
+
+        if user_id:
+            sub, _ = Subscription.objects.get_or_create(owner_id=user_id)
+            sub.is_premium = True
+            sub.stripe_customer_id = customer_id or ""
+            sub.stripe_subscription_id = stripe_sub_id or ""
+            sub.save()
+
+    return HttpResponse(status=200)
