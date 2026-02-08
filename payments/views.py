@@ -68,7 +68,18 @@ def create_checkout_session(request):
 
 @login_required
 def success(request):
-    # Minimal success page. (Your webhook should set is_premium=True.)
+    # I update the local subscription using the Stripe session so the UI becomes Premium instantly.
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    session_id = request.GET.get("session_id")
+    if session_id:
+        session = stripe.checkout.Session.retrieve(session_id)
+        sub, _ = Subscription.objects.get_or_create(owner=request.user)
+        sub.is_premium = True
+        sub.stripe_customer_id = session.get("customer") or ""
+        sub.stripe_subscription_id = session.get("subscription") or ""
+        sub.save()
+
     return render(request, "payments/success.html")
 
 
@@ -81,43 +92,35 @@ def stripe_webhook(request):
     payload = request.body
     sig_header = request.META.get("HTTP_STRIPE_SIGNATURE", "")
 
-    logger.info("Stripe webhook received. sig_header_present=%s payload_len=%s",
-                bool(sig_header), len(payload))
-
     try:
         event = stripe.Webhook.construct_event(
             payload=payload,
             sig_header=sig_header,
             secret=settings.STRIPE_WEBHOOK_SECRET,
         )
-    except ValueError as e:
-        logger.exception("Stripe webhook invalid payload: %s", e)
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        logger.exception("Stripe webhook signature verification failed: %s", e)
+    except (ValueError, stripe.error.SignatureVerificationError):
         return HttpResponse(status=400)
 
-    logger.info("Stripe webhook verified. type=%s", event["type"])
+    logger.info("Webhook event type: %s", event["type"])
 
     if event["type"] == "checkout.session.completed":
         session = event["data"]["object"]
+        logger.info("checkout.session.completed fired")
+        logger.info("metadata=%s", session.get("metadata", {}))
 
         user_id = session.get("metadata", {}).get("user_id")
         customer_id = session.get("customer")
         stripe_sub_id = session.get("subscription")
 
-        logger.info("checkout.session.completed metadata.user_id=%s customer=%s subscription=%s",
-                    user_id, customer_id, stripe_sub_id)
-
         if user_id:
-            sub, created = Subscription.objects.get_or_create(owner_id=user_id)
+            sub, _ = Subscription.objects.get_or_create(owner_id=user_id)
             sub.is_premium = True
             sub.stripe_customer_id = customer_id or ""
             sub.stripe_subscription_id = stripe_sub_id or ""
             sub.save()
-            logger.info("Subscription updated. user_id=%s created=%s is_premium=%s",
-                        user_id, created, sub.is_premium)
+
+            logger.info("Premium set TRUE for user_id=%s", user_id)
         else:
-            logger.warning("checkout.session.completed missing metadata.user_id")
+            logger.warning("No user_id found in metadata")
 
     return HttpResponse(status=200)
