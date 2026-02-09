@@ -176,16 +176,21 @@ python manage.py test
 
 ### ✅ What is Tested
 
-> Update the table below to reflect your actual test modules/files (e.g. `documents/tests.py`, `payments/tests.py`).
+### ✅ What is Tested
 
-| **Test Area** | **Example Tests** | **Purpose** |
+The following automated tests were written using Django’s built-in `TestCase` framework. These tests focus on authentication, access control, document ownership, and subscription defaults.
+
+| **Test File** | **Test Name** | **Purpose** |
 |---|---|---|
-| Authentication | Login required redirects | Ensures private pages require authentication |
-| Ownership/Security | Cannot access another user’s objects | Prevents URL tampering / data leaks |
-| Documents | Create/edit/delete document | Core CRUD flow works |
-| Contacts | Create/edit/delete contact | Core CRUD flow works |
-| Expenses | Month filter + totals | Ensures monthly calculations and filtering behave correctly |
-| Subscription | Free limit / Premium bypass | Ensures paywall behaves as intended |
+| `accounts/tests.py` | `test_user_can_signup` | Verifies that a user can sign up successfully and is redirected to the home page after registration. |
+| `accounts/tests.py` | `test_login_required_redirect` | Ensures protected pages (e.g. documents list) redirect unauthenticated users to the login page. |
+| `documents/tests.py` | `test_logged_in_user_can_create_document` | Confirms a logged-in user can create a document and that it is assigned to the correct owner. |
+| `documents/tests.py` | `test_document_list_shows_only_own_documents` | Ensures the documents list only shows documents belonging to the logged-in user. |
+| `documents/tests.py` | `test_owner_can_view_delete_confirm_page` | Confirms the document owner can access the delete confirmation page. |
+| `documents/tests.py` | `test_owner_can_delete_document_via_post` | Ensures the document owner can delete a document via POST and that it is removed from the database. |
+| `documents/tests.py` | `test_user_cannot_view_or_delete_another_users_document` | Prevents URL tampering by ensuring users cannot view/delete documents they do not own. |
+| `payments/tests.py` | `test_subscription_created_for_new_user` | Ensures a `Subscription` object is automatically created for new users and defaults to `is_premium = False`. |
+
 
 ## 🧪 Optional: Run with coverage
 pip install coverage
@@ -285,7 +290,10 @@ Lighthouse was utilized to evaluate the **performance**, **accessibility**, **be
 
 At the end of the project, all Python files were validated to ensure adherence to PEP8 standards. The following tools were used:
 
-- **Black**: used to enforce consistent formatting across the codebase.
+- **Black**: To ensure consistent and readable code style across the project, I used [Black](https://pypi.org/project/black//), the uncompromising Python code formatter. Black automatically reformats all Python files according to a strict and widely-accepted standard, eliminating style debates and making the codebase easier to maintain and review. The entire project was formatted using Black before final submission.
+
+This final validation step ensured that the code meets industry-standard best practices for readability and maintainability.
+
 - **PEP8 CI Python Linter**: Custom Python files were validated using the [Code Institute PEP8 Validator](https://pep8ci.herokuapp.com/) to ensure compliance with PEP8 guidelines.
 
 **Results:**  
