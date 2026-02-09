@@ -29,7 +29,6 @@ def contact_list(request):
     )
 
 
-
 @login_required
 def contact_detail(request, pk):
     contact = get_object_or_404(Contact, pk=pk, owner=request.user)
@@ -50,7 +49,9 @@ def contact_create(request):
     else:
         form = ContactForm()
 
-    return render(request, "contacts/contact_form.html", {"form": form, "mode": "create"})
+    return render(
+        request, "contacts/contact_form.html", {"form": form, "mode": "create"}
+    )
 
 
 @login_required
@@ -67,7 +68,11 @@ def contact_update(request, pk):
     else:
         form = ContactForm(instance=contact)
 
-    return render(request, "contacts/contact_form.html", {"form": form, "mode": "update", "contact": contact})
+    return render(
+        request,
+        "contacts/contact_form.html",
+        {"form": form, "mode": "update", "contact": contact},
+    )
 
 
 @login_required

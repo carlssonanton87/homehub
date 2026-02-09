@@ -56,7 +56,9 @@ def expense_create(request):
     else:
         form = ExpenseForm()
 
-    return render(request, "expenses/expense_form.html", {"form": form, "mode": "create"})
+    return render(
+        request, "expenses/expense_form.html", {"form": form, "mode": "create"}
+    )
 
 
 @login_required
@@ -73,7 +75,11 @@ def expense_update(request, pk):
     else:
         form = ExpenseForm(instance=expense)
 
-    return render(request, "expenses/expense_form.html", {"form": form, "mode": "update", "expense": expense})
+    return render(
+        request,
+        "expenses/expense_form.html",
+        {"form": form, "mode": "update", "expense": expense},
+    )
 
 
 @login_required

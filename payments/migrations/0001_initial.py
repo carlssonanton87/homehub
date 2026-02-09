@@ -15,14 +15,32 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Subscription',
+            name="Subscription",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_premium', models.BooleanField(default=False)),
-                ('stripe_customer_id', models.CharField(blank=True, max_length=255)),
-                ('stripe_subscription_id', models.CharField(blank=True, max_length=255)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('owner', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='subscription', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_premium", models.BooleanField(default=False)),
+                ("stripe_customer_id", models.CharField(blank=True, max_length=255)),
+                (
+                    "stripe_subscription_id",
+                    models.CharField(blank=True, max_length=255),
+                ),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "owner",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="subscription",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

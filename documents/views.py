@@ -28,7 +28,6 @@ def document_list(request):
     )
 
 
-
 @login_required
 def document_detail(request, pk):
     document = get_object_or_404(Document, pk=pk, owner=request.user)
@@ -48,7 +47,7 @@ def document_create(request):
         if current_count >= FREE_DOCUMENT_LIMIT:
             messages.error(
                 request,
-                f"Free accounts can save up to {FREE_DOCUMENT_LIMIT} documents. Upgrade to Premium to add more."
+                f"Free accounts can save up to {FREE_DOCUMENT_LIMIT} documents. Upgrade to Premium to add more.",
             )
             return redirect("documents:list")
 
@@ -64,7 +63,10 @@ def document_create(request):
     else:
         form = DocumentForm()
 
-    return render(request, "documents/document_form.html", {"form": form, "mode": "create"})
+    return render(
+        request, "documents/document_form.html", {"form": form, "mode": "create"}
+    )
+
 
 @login_required
 def document_update(request, pk):
@@ -80,8 +82,11 @@ def document_update(request, pk):
     else:
         form = DocumentForm(instance=document)
 
-    return render(request, "documents/document_form.html", {"form": form, "mode": "update", "document": document})
-
+    return render(
+        request,
+        "documents/document_form.html",
+        {"form": form, "mode": "update", "document": document},
+    )
 
 
 class DocumentDeleteView(LoginRequiredMixin, DeleteView):

@@ -13,5 +13,7 @@ class ContactForm(forms.ModelForm):
         email = (cleaned.get("email") or "").strip()
 
         if not phone and not email:
-            raise forms.ValidationError("Please provide at least a phone number or an email address.")
+            raise forms.ValidationError(
+                "Please provide at least a phone number or an email address."
+            )
         return cleaned

@@ -18,7 +18,9 @@ class Expense(models.Model):
         related_name="expenses",
     )
     date = models.DateField()
-    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, default="other")
+    category = models.CharField(
+        max_length=30, choices=CATEGORY_CHOICES, default="other"
+    )
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     note = models.CharField(max_length=200, blank=True)
 

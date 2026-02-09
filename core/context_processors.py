@@ -3,6 +3,7 @@ I keep all shared Tailwind UI classes here so the design stays consistent
 and easy to change across the whole app.
 """
 
+
 def premium_status(request):
     # I expose premium status globally so navbar and all templates stay consistent.
     is_premium = False
@@ -28,19 +29,14 @@ def ui(request):
                 "text-slate-700 hover:bg-slate-50 focus:outline-none "
                 "focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
             ),
-
             # Cards
-            "card": (
-                "rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-            ),
-
+            "card": ("rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"),
             # Inputs
             "input": (
                 "w-full rounded-lg border border-slate-300 px-3 py-2 text-sm "
                 "focus:border-slate-500 focus:outline-none focus:ring-1 "
                 "focus:ring-slate-400"
             ),
-
             # Section headings
             "h2": "text-xl font-semibold tracking-tight text-slate-900",
             "muted": "text-sm text-slate-500",

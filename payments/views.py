@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -62,6 +63,7 @@ def create_checkout_session(request):
     except Exception as e:
         logger.exception("Stripe checkout failed: %s", e)
         from django.contrib import messages
+
         messages.error(request, "Something went wrong. Please try again in a moment.")
         return redirect("payments:upgrade")
 
@@ -86,6 +88,7 @@ def success(request):
 @login_required
 def cancel(request):
     return render(request, "payments/cancel.html")
+
 
 @csrf_exempt
 def stripe_webhook(request):

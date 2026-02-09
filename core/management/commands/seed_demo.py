@@ -30,22 +30,48 @@ from documents.models import Document
 docs = [
     ("Insurance policy", "Home insurance details, policy number, coverage notes."),
     ("Dishwasher warranty", "Warranty expires 2027-11-01. Serial number: ABC123."),
-    ("Wi-Fi setup", "Router model, admin login stored securely elsewhere, guest network info."),
+    (
+        "Wi-Fi setup",
+        "Router model, admin login stored securely elsewhere, guest network info.",
+    ),
     ("Paint colors", "Living room: NCS S 0502-Y. Bedroom: NCS S 2005-B20G."),
     ("Emergency checklist", "Shut-off valves, fuse box location, emergency contacts."),
-    ("Renovation notes", "Kitchen remodel timeline, contractor notes, receipts location."),
+    (
+        "Renovation notes",
+        "Kitchen remodel timeline, contractor notes, receipts location.",
+    ),
 ]
 for title, description in docs:
-    Document.objects.get_or_create(owner=user, title=title, defaults={"description": description})
+    Document.objects.get_or_create(
+        owner=user, title=title, defaults={"description": description}
+    )
 print("✅ Documents ensured:", len(docs))
 
 # 4) Create sample contacts
 from contacts.models import Contact
 
 contacts = [
-    {"name": "Anna Electric", "role_type": "electrician", "phone": "070-111 22 33", "email": "anna@electric.example", "notes": "Fast response, used 2024."},
-    {"name": "Plumbing Pro", "role_type": "plumber", "phone": "070-222 33 44", "email": "", "notes": "Handles leaks and drains."},
-    {"name": "Home Insurance Support", "role_type": "insurance", "phone": "0771-123 456", "email": "support@insurance.example", "notes": "Policy questions."},
+    {
+        "name": "Anna Electric",
+        "role_type": "electrician",
+        "phone": "070-111 22 33",
+        "email": "anna@electric.example",
+        "notes": "Fast response, used 2024.",
+    },
+    {
+        "name": "Plumbing Pro",
+        "role_type": "plumber",
+        "phone": "070-222 33 44",
+        "email": "",
+        "notes": "Handles leaks and drains.",
+    },
+    {
+        "name": "Home Insurance Support",
+        "role_type": "insurance",
+        "phone": "0771-123 456",
+        "email": "support@insurance.example",
+        "notes": "Policy questions.",
+    },
 ]
 
 for data in contacts:
@@ -67,11 +93,36 @@ from expenses.models import Expense
 
 today = date.today()
 expenses = [
-    {"date": today - timedelta(days=2), "category": "utilities", "amount": 349.00, "note": "Electricity"},
-    {"date": today - timedelta(days=5), "category": "groceries", "amount": 892.50, "note": "Weekly groceries"},
-    {"date": today - timedelta(days=9), "category": "repairs", "amount": 1200.00, "note": "Sink repair"},
-    {"date": today - timedelta(days=12), "category": "internet", "amount": 399.00, "note": "Broadband"},
-    {"date": today - timedelta(days=15), "category": "household", "amount": 149.90, "note": "Cleaning supplies"},
+    {
+        "date": today - timedelta(days=2),
+        "category": "utilities",
+        "amount": 349.00,
+        "note": "Electricity",
+    },
+    {
+        "date": today - timedelta(days=5),
+        "category": "groceries",
+        "amount": 892.50,
+        "note": "Weekly groceries",
+    },
+    {
+        "date": today - timedelta(days=9),
+        "category": "repairs",
+        "amount": 1200.00,
+        "note": "Sink repair",
+    },
+    {
+        "date": today - timedelta(days=12),
+        "category": "internet",
+        "amount": 399.00,
+        "note": "Broadband",
+    },
+    {
+        "date": today - timedelta(days=15),
+        "category": "household",
+        "amount": 149.90,
+        "note": "Cleaning supplies",
+    },
 ]
 
 for e in expenses:
