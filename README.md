@@ -8,7 +8,8 @@
 
 [Live Demo](https://homehub-anton-5399ce3434e0.herokuapp.com/)
 
-[Homehub shown on a range of devices](readme_assets/images/devices.png)
+
+![Homehub shown on a range of devices](readme_assets/images/devices.png)
 ---
 
 ## Key Features
@@ -224,11 +225,22 @@ The diagram below illustrates the database structure and relationships used in H
 
 ## Agile Methodology
 
-This project was developed using Agile methodology and tracked using GitHub Issues / Projects.
+This project was developed using Agile methodology and tracked using GitHub Issues and Projects.
 
 ### Kanban Workflow
-> Add your board link here:
-- Kanban Board: `https://github.com/users/carlssonanton87/projects/<ID>`
+
+Development was managed using a GitHub Projects Kanban board with the following workflow stages:
+
+- Backlog
+- To Do
+- In Progress
+- Review / Testing
+- Done
+
+The board was used to plan features, track progress, and ensure all core functionality was implemented and tested.
+
+- Kanban Board: https://github.com/users/carlssonanton87/projects/2
+
 
 ### Project Evolution
 - Planned epics and user stories first
@@ -254,47 +266,70 @@ For version control, Git was used to track changes through frequent commits:
 ---
 ## Deployment
 
-Homehub was deployed on Heroku using GitHub integration for automatic deployment.
+This project was deployed to **Heroku**, using **GitHub integration** for automatic deployments. The live application reflects the latest code pushed to the `main` branch.
 
-1. Create a Heroku app
-2. Connect the GitHub repository
-3. Enable automatic deploys from `main`
-4. Add environment variables (Config Vars):
-   - `SECRET_KEY`
-   - `DATABASE_URL`
-   - `DEBUG`
-   - `ALLOWED_HOSTS`
-   - `CSRF_TRUSTED_ORIGINS`
-   - `STRIPE_PUBLIC_KEY`
-   - `STRIPE_SECRET_KEY`
-   - `STRIPE_PRICE_ID`
-5. Add Heroku Postgres add-on
-6. Run migrations:
-   - `python manage.py migrate`
-7. Optional: seed demo user data:
-   - `python manage.py seed_demo`
+### Live Application
+
+- **Live site:** https://homehub-anton-5399ce3434e0.herokuapp.com/
+- **Repository:** https://github.com/carlssonanton87/homehub
 
 ---
 
+### Heroku Deployment Steps
 
-### Forking and Local Setup
+The following steps were taken to deploy the application:
 
-If you’d like to fork this repository and set it up locally, follow these steps:
+1. **Create Heroku App**
+   - Logged in to the Heroku dashboard
+   - Clicked **New → Create new app**
+   - Selected a unique app name and region
 
-1. **Fork the Repository**:  
-   - Go to the GitHub repository and click on "Fork" to create a copy in your account.
+2. **Connect GitHub Repository**
+   - Navigated to the **Deploy** tab in Heroku
+   - Selected **GitHub** as the deployment method
+   - Connected the Homehub repository
+   - Enabled **automatic deploys** from the `main` branch
 
-2. **Clone Your Fork**:  
-   - Click "Code" on your forked repository, copy the URL, then open your terminal and run:
-     ```
-     git clone [URL you copied]
-     ```
+3. **Configure Environment Variables**
+   The following environment variables were added under **Settings → Config Vars**:
 
-3. **Set Up Virtual Environment**:  
-   - Navigate to the project directory:
-     ```
-     cd [project directory name]
-     ```
+   - `SECRET_KEY` – Django secret key
+   - `DATABASE_URL` – PostgreSQL database URL
+   - `STRIPE_SECRET_KEY` – Stripe API secret key
+   - `STRIPE_PUBLISHABLE_KEY` – Stripe public key
+   - `STRIPE_PRICE_ID` – Stripe subscription price ID
+   - `STRIPE_WEBHOOK_SECRET` – Stripe webhook signing secret
+   - `DEBUG` – Set to `False` for production
+
+4. **Buildpacks**
+   - The **Heroku Python buildpack** was used to run the Django application
+
+5. **Database**
+   - PostgreSQL was used as the production database
+   - Database migrations were applied automatically during deployment
+
+6. **Static Files**
+   - Static files are handled using **WhiteNoise**
+   - `collectstatic` runs automatically during deployment
+
+7. **Verify Deployment**
+   - The application was launched via the Heroku dashboard
+   - User authentication, CRUD functionality, and Stripe payments were tested in production
+
+---
+
+### Local Development Setup
+
+To run the project locally:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/carlssonanton87/homehub.git
+   cd homehub
+
+
+2. **Set Up Virtual Environment**:  
+   
    - Create a virtual environment:
      ```
      python3 -m venv venv
@@ -303,48 +338,45 @@ If you’d like to fork this repository and set it up locally, follow these step
      - On Windows: `venv\Scripts\activate`
      - On macOS and Linux: `source venv/bin/activate`
 
-4. **Install Dependencies**:  
+3. **Install Dependencies**:  
    - With the virtual environment activated, install the required packages:
      ```
      pip install -r requirements.txt
      ```
 
-5. **Set Up Environment Variables**:  
+4. **Set Up Environment Variables**:  
    - Create an `env.py` file in the root directory and add the following environment variables based on `settings.py` requirements:
      ```python
-     SECRET_KEY = 'your_secret_key'
-     DATABASE_URL = 'your_database_url'
-     CLOUDINARY_URL = 'your_cloudinary_url?secure=true'
-     DEVELOPMENT = 'True'
+     SECRET_KEY = "your_secret_key"
+DATABASE_URL = "your_database_url"
+STRIPE_SECRET_KEY = "your_stripe_secret_key"
+STRIPE_PUBLISHABLE_KEY = "your_stripe_publishable_key"
+STRIPE_PRICE_ID = "your_stripe_price_id"
+STRIPE_WEBHOOK_SECRET = "your_stripe_webhook_secret"
+DEBUG = True
      ```
-   - Setting `DEVELOPMENT = 'True'` enables `DEBUG=True` in local development, allowing you to test and debug safely.
-   - Adding `secure=true` to the `CLOUDINARY_URL` ensures media files are delivered over HTTPS, providing secure access to images and assets.
-
-6. **Apply Migrations**:  
+   
+5. **Apply Migrations**:  
    - Run migrations to set up the database schema:
      ```
-     python3 manage.py makemigrations
-     python3 manage.py migrate
+     
+     python manage.py migrate
      ```
 
-7. **Collect Static Files (Optional for Local Testing)**:  
-   - If you want to test static files locally in a production-like setup, you can run:
-     ```bash
-     python3 manage.py collectstatic
-     ```
-   - This is typically required in production but can be helpful to verify static files locally.
 
-8. **Run the Development Server**:  
-   - Start the server locally:
+6. **Create superuser**:  
+   - Create a superuser (optional):
      ```
-     python3 manage.py runserver 8001
+     python manage.py createsuperuser
      ```
-   - Note: This project initially used port `8000` but now uses port `8001` to avoid conflicts with other services.
-   - Open a browser and go to `http://127.0.0.1:8001/` to view the application locally.
 
----
+6. **Run Server**:  
+   - Run the development server:
+     ```
+     python manage.py runserver
+     ```
+       - Open a browser and go to `http://127.0.0.1:8000/` to view the application locally.
 
-This enhanced setup provides a clear process for cloning, setting up environment variables, and preparing the local environment based on your project’s specific configuration requirements.
 
 ---
 
@@ -404,16 +436,6 @@ For detailed test cases, validation screenshots, and device testing, please refe
 
 
 
-## Project Goals
-### Business Goals
-- Provide a simple, intuitive platform to store home information securely.
-- Encourage upgrades by offering a meaningful Premium benefit (increased document capacity).
-
-### User Goals
-- Store and find home documents quickly.
-- Maintain a reliable list of home-related contacts.
-- Track expenses by month and see totals.
-- Upgrade to Premium with clear purchase feedback.
 
 ---
 
